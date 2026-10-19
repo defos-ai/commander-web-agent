@@ -1,0 +1,14 @@
+services:
+  api:
+    environment:
+      ENV: tests
+
+  website:
+    image: nginx:alpine
+    volumes:
+      - ./tests/fixtures/site:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1/"]
+      interval: 2s
+      timeout: 2s
+      retries: 15

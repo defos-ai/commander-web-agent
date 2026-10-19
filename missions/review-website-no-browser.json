@@ -1,0 +1,24 @@
+[
+  {
+    "name": "review-website-no-browser",
+    "objective": "Review a website using static HTML and HTTP. Assign discover-pages-no-browser with the mission input; the controller runs its proposed link, SEO and technology checks. Review findings and complete the operation with a summary. Do not modify the site. This review does not render JavaScript, check rendered accessibility or capture screenshots.",
+    "required_actions": ["discover-pages-no-browser", "check-links", "check-seo", "detect-technologies"],
+    "starting_actions": ["discover-pages-no-browser"],
+    "rules": {},
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {"type": "string", "pattern": "^https?://"},
+        "max_pages": {"type": "integer", "minimum": 1, "maximum": 10, "default": 3}
+      },
+      "required": ["url"],
+      "additionalProperties": false
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {"summary": {"type": "string", "minLength": 1}},
+      "required": ["summary"],
+      "additionalProperties": false
+    }
+  }
+]
