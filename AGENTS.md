@@ -46,6 +46,10 @@
 - [The demo mission](missions/review-website-no-browser.json) runs without a
   browser. The client assigns discovery, reviews its proposed checks, then
   completes the operation. Creating an operation alone does not queue discovery.
+  Root `objectives` is an ordered array of nonblank strings. All entries apply
+  to the mission and are displayed separately; step `objective` stays singular.
+  These mission definitions need a compatible Commander host;
+  the Compose default v0.1.0 cannot import the new format.
 
 ## Compose and release
 

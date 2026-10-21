@@ -25,8 +25,10 @@ Admin UI: <http://localhost:4285>. API: `http://localhost:4284`.
 Get the API login with `docker compose exec api commander-api credentials`.
 Stop the demo with `docker compose down`; add `--volumes` to delete its results.
 
-The demo uses Commander **v0.1.0** and local filesystem providers. Set
-`COMMANDER_VERSION` to choose a different Commander release.
+The demo uses local filesystem providers. Its current mission uses the
+`objectives` array and requires a compatible Commander host build; set
+`COMMANDER_VERSION` to that image tag. The Compose default **v0.1.0** does not
+accept this mission format.
 
 ## Connect to an existing Commander
 
