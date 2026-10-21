@@ -64,13 +64,28 @@
   Docker lifecycle stays in setup/CI, outside Go test fixtures.
 - Release assets derive from the repository owner and literal AgentType in
   agent.go. Keep `.github/` and `agent.yaml.tmpl` aligned with the example agent.
-  Agent packages describe delivery assets only: binaries/checksums and a Docker
-  digest, never runtime secrets, arbitrary commands or host permissions.
+  Agent packages describe delivery assets and static capabilities: responsibilities,
+  action names/descriptions, binaries/checksums and a Docker digest, never runtime
+  secrets, arbitrary commands or host permissions.
 - Publish from one tested revision. Keep build/push reusable-only, preserve
   immutable version tags/assets, serialize releases and advance stable only
   after complete publication with no backward version movement. Grant this new
   repository Actions write access to the existing GHCR package before release.
   Commander must stop publishing this agent's image during the ownership handoff.
+
+## Static package description
+
+- [description.go](description.go) provides pure `Responsibilities()` and
+  `ActionDescriptions()` functions returning fresh slices. Runtime defaults and
+  release manifests use the same metadata; constructors share description
+  constants from `actions/`. Update both the registered and described action lists
+  when capabilities change. Do not create agents/providers, run discovery, read
+  environment variables or perform I/O in these functions.
+- Manifest generation imports this module using the path in `go.mod` and calls
+  those functions through a temporary exporter. Keep its output bounded and its
+  Go environment free of release/model tokens. The four-field `metadata` command
+  remains independent of these functions. Descriptions are capability metadata,
+  never action readiness or permission to launch a package.
 
 ## Validation
 

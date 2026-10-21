@@ -10,6 +10,8 @@ import (
 	actionmodel "github.com/defos-ai/commander/framework/domain/actions"
 )
 
+const CheckLinksDescription = "Check up to 40 unique links on the same hostname using HTTP GET, including HTTP(S) and port changes. Reports broken links and skipped external/non-HTTP links; does not follow forms or execute JavaScript."
+
 type Link struct {
 	URL         string `json:"url"`
 	StatusCode  int    `json:"status_code"`
@@ -30,7 +32,7 @@ type CheckLinksOutput struct {
 type CheckLinks struct{ *action.Base }
 
 func NewCheckLinks() *CheckLinks {
-	return &CheckLinks{action.NewBase(actionmodel.Action{Name: CheckLinksName, Description: "Check up to 40 unique links on the same hostname using HTTP GET, including HTTP(S) and port changes. Reports broken links and skipped external/non-HTTP links; does not follow forms or execute JavaScript.", InputSchema: json.RawMessage(pageInputSchema), OutputSchema: outputSchema[CheckLinksOutput]()})}
+	return &CheckLinks{action.NewBase(actionmodel.Action{Name: CheckLinksName, Description: CheckLinksDescription, InputSchema: json.RawMessage(pageInputSchema), OutputSchema: outputSchema[CheckLinksOutput]()})}
 }
 func (a *CheckLinks) Run(ctx context.Context, raw json.RawMessage) (action.Result, error) {
 	if err := a.Check(); err != nil {

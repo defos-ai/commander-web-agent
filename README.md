@@ -70,7 +70,9 @@ go vet ./...
 The next agent release is **v0.2.0**, using Commander framework/providers **v0.1.0**.
 The manual **Make release** workflow publishes native binaries, checksums,
 `agent.yaml` and `ghcr.io/defos-ai/commander-web-agent:v0.2.0`. Existing image names
-and previous tags are retained. Before its first release, grant this repository
+and previous tags are retained. The manifest includes the default responsibilities
+and action descriptions from [description.go](description.go), alongside binaries
+and image checksums. Before its first release, grant this repository
 write access to the organization's existing GHCR package. Complete releases
 promote Docker `stable` and GitHub `Latest` when they are the newest version.
 

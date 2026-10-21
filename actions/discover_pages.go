@@ -11,6 +11,10 @@ import (
 	actionmodel "github.com/defos-ai/commander/framework/domain/actions"
 )
 
+const DiscoverPagesNoBrowserDescription = "Discover up to ten HTML pages on the same hostname, including HTTP(S) and port changes. Propose link, SEO and technology checks without a browser. Excludes other hostnames and subdomains; does not submit forms."
+
+const DiscoverPagesDescription = "Discover up to ten HTML pages on the same hostname, including HTTP(S) and port changes. Propose link, accessibility, screenshot, SEO and technology checks for each. Excludes other hostnames and subdomains; does not submit forms."
+
 const (
 	checkAccessibilityName = "check-accessibility"
 	capturePageName        = "capture-page"
@@ -41,11 +45,11 @@ type DiscoverPages struct {
 }
 
 func NewDiscoverPages() *DiscoverPages {
-	return newDiscoverPages(DiscoverPagesName, "Discover up to ten HTML pages on the same hostname, including HTTP(S) and port changes. Propose link, accessibility, screenshot, SEO and technology checks for each. Excludes other hostnames and subdomains; does not submit forms.", []string{CheckLinksName, checkAccessibilityName, capturePageName, CheckSEOName, DetectTechnologiesName})
+	return newDiscoverPages(DiscoverPagesName, DiscoverPagesDescription, []string{CheckLinksName, checkAccessibilityName, capturePageName, CheckSEOName, DetectTechnologiesName})
 }
 
 func NewDiscoverPagesNoBrowser() *DiscoverPages {
-	return newDiscoverPages(DiscoverPagesNoBrowserName, "Discover up to ten HTML pages on the same hostname, including HTTP(S) and port changes. Propose link, SEO and technology checks without a browser. Excludes other hostnames and subdomains; does not submit forms.", []string{CheckLinksName, CheckSEOName, DetectTechnologiesName})
+	return newDiscoverPages(DiscoverPagesNoBrowserName, DiscoverPagesNoBrowserDescription, []string{CheckLinksName, CheckSEOName, DetectTechnologiesName})
 }
 
 func newDiscoverPages(name, description string, checks []string) *DiscoverPages {

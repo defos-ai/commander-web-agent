@@ -9,7 +9,7 @@ const AgentType agents.AgentType = "web-agent"
 func NewAgent(config agents.AgentConfig) (*agents.Agent, error) {
 	config.Type = AgentType
 	if config.Responsibilities == nil {
-		config.Responsibilities = []string{"Discover website pages and inspect links, SEO metadata and technology indicators"}
+		config.Responsibilities = Responsibilities()
 	}
 	if config.Actions == nil {
 		config.Actions = NewActions()

@@ -16,6 +16,8 @@ import (
 	"golang.org/x/net/html"
 )
 
+const DetectTechnologiesDescription = "Inspect one HTTP response for Server/X-Powered-By headers, generator metadata, and recognizable JavaScript package/framework declarations. Reports explicit versions and evidence; does not fetch scripts, execute JavaScript, or assess vulnerabilities or current versions."
+
 const (
 	maxTechnologyIndicators = 48
 	maxTechnologyScripts    = 200
@@ -53,7 +55,7 @@ type DetectTechnologies struct{ *action.Base }
 func NewDetectTechnologies() *DetectTechnologies {
 	return &DetectTechnologies{action.NewBase(actionmodel.Action{
 		Name:        DetectTechnologiesName,
-		Description: "Inspect one HTTP response for Server/X-Powered-By headers, generator metadata, and recognizable JavaScript package/framework declarations. Reports explicit versions and evidence; does not fetch scripts, execute JavaScript, or assess vulnerabilities or current versions.",
+		Description: DetectTechnologiesDescription,
 		InputSchema: json.RawMessage(pageInputSchema), OutputSchema: outputSchema[DetectTechnologiesOutput](),
 	})}
 }

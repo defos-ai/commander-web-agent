@@ -16,6 +16,8 @@ import (
 	"golang.org/x/net/html"
 )
 
+const CheckSEODescription = "Inspect static HTML and response headers for page title, description, canonical URL, headings, robots directives, viewport, Open Graph tags and JSON-LD syntax. Reports observed evidence and contextual recommendations; does not measure rankings or guarantee indexing."
+
 type SEOIssue struct {
 	Check          string   `json:"check"`
 	Severity       string   `json:"severity"`
@@ -52,7 +54,7 @@ type CheckSEOOutput struct {
 type CheckSEO struct{ *action.Base }
 
 func NewCheckSEO() *CheckSEO {
-	return &CheckSEO{action.NewBase(actionmodel.Action{Name: CheckSEOName, Description: "Inspect static HTML and response headers for page title, description, canonical URL, headings, robots directives, viewport, Open Graph tags and JSON-LD syntax. Reports observed evidence and contextual recommendations; does not measure rankings or guarantee indexing.", InputSchema: json.RawMessage(pageInputSchema), OutputSchema: outputSchema[CheckSEOOutput]()})}
+	return &CheckSEO{action.NewBase(actionmodel.Action{Name: CheckSEOName, Description: CheckSEODescription, InputSchema: json.RawMessage(pageInputSchema), OutputSchema: outputSchema[CheckSEOOutput]()})}
 }
 
 func (a *CheckSEO) Run(ctx context.Context, raw json.RawMessage) (action.Result, error) {
