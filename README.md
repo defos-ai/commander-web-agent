@@ -25,10 +25,8 @@ Admin UI: <http://localhost:4285>. API: `http://localhost:4284`.
 Get the API login with `docker compose exec api commander-api credentials`.
 Stop the demo with `docker compose down`; add `--volumes` to delete its results.
 
-The demo uses local filesystem providers. Its current mission uses the
-`objectives` array and requires a compatible Commander host build; set
-`COMMANDER_VERSION` to that image tag. The Compose default **v0.1.0** does not
-accept this mission format.
+The demo uses local filesystem providers and Commander **v0.2.0**.
+Set `COMMANDER_VERSION` to use another compatible release.
 
 ## Connect to an existing Commander
 
@@ -69,13 +67,13 @@ go test -race -count=1 -timeout=3m ./...
 go vet ./...
 ```
 
-The next agent release is **v0.2.0**, using Commander framework/providers **v0.1.0**.
+The next agent release is **v0.2.1**, using Commander framework/providers **v0.2.0**.
 The manual **Make release** workflow publishes native binaries, checksums,
-`agent.yaml` and `ghcr.io/defos-ai/commander-web-agent:v0.2.0`. Existing image names
+`agent.yaml` and `ghcr.io/defos-ai/commander-web-agent:v0.2.1`. Existing image names
 and previous tags are retained. The manifest includes the default responsibilities
 and action descriptions from [description.go](description.go), alongside binaries
-and image checksums. Before its first release, grant this repository
-write access to the organization's existing GHCR package. Complete releases
+and image checksums, using the framework's shared manifest template. The repository
+needs write access to its GHCR package. Complete releases
 promote Docker `stable` and GitHub `Latest` when they are the newest version.
 
 See [AGENTS.md](AGENTS.md) for integration checks and release details.

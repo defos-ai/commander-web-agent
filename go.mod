@@ -3,10 +3,10 @@ module github.com/defos-ai/commander-web-agent
 go 1.26.7
 
 require (
-	github.com/defos-ai/commander/framework v0.1.0
-	github.com/defos-ai/commander/providers/fs v0.1.0
-	github.com/defos-ai/commander/providers/rabbitmq v0.1.0
-	github.com/defos-ai/commander/providers/s3 v0.1.0
+	github.com/defos-ai/commander/framework v0.2.0
+	github.com/defos-ai/commander/providers/fs v0.2.0
+	github.com/defos-ai/commander/providers/rabbitmq v0.2.0
+	github.com/defos-ai/commander/providers/s3 v0.2.0
 	golang.org/x/net v0.59.0
 )
 
@@ -29,7 +29,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.43.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.51.1 // indirect
 	github.com/aws/smithy-go v1.28.1 // indirect
+	github.com/distribution/reference v0.6.0 // indirect
 	github.com/google/jsonschema-go v0.4.3 // indirect
+	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.15.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 )

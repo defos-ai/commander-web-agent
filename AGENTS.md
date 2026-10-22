@@ -10,8 +10,8 @@
   remain AGPL-3.0-only. Preserve third-party license notices and the README
   distinction between source and dependency licenses for combined builds.
 - This is a standalone module using published Commander framework/providers
-  v0.1.0. Docker/CI use `GOWORK=off`; never add sibling `replace` directives or
-  imports of Commander apps. Agent v0.2.0 does not require framework v0.2.0.
+  v0.2.0. Docker/CI use `GOWORK=off`; never add sibling `replace` directives or
+  imports of Commander apps. The next agent release is v0.2.1.
 - [agent.go](agent.go) defines literal `AgentType = "web-agent"` and `NewAgent`.
   [actions.go](actions.go) creates fresh action instances; preserve explicitly
   empty catalogs. `cli/factory.go` chooses FS/RabbitMQ/S3 providers; the agent
@@ -21,9 +21,8 @@
   provider errors during cancellation.
 - `--agent-id-suffix` overrides `COMMANDER_AGENT_ID_SUFFIX`, including explicit
   empty. Accept exactly eight lowercase hexadecimal characters; empty generates
-  a fresh ID. Validate the composed ID with v0.1.0 `id.RuntimeType` before opening
-  providers. Never accept an external type prefix or expose the setting in
-  public config. Identity correlates spawner retries; it is not authorization or
+  a fresh ID. Use `id.AgentIDFromSuffix` before opening providers. Never accept
+  an external type prefix or expose the setting in public config. Identity correlates spawner retries; it is not authorization or
   duplicate prevention.
 - Commander → Controller → Agent: actions propose work, controllers dispatch it.
   Agents upload bytes; controllers persist accepted artifact metadata. Do not
@@ -48,14 +47,13 @@
   completes the operation. Creating an operation alone does not queue discovery.
   Root `objectives` is an ordered array of nonblank strings. All entries apply
   to the mission and are displayed separately; step `objective` stays singular.
-  These mission definitions need a compatible Commander host;
-  the Compose default v0.1.0 cannot import the new format.
+  The Compose default Commander v0.2.0 accepts these mission definitions.
 
 ## Compose and release
 
 - Compose follows commander-example-agent: isolated FS state owned by UID1000,
   one controller, API/MCP/Admin bound to loopback ports4284/4283/4285. Commander
-  images default to v0.1.0 (override `COMMANDER_VERSION`); their currently
+  images default to v0.2.0 (override `COMMANDER_VERSION`); their currently
   published platform is linux/amd64, requested explicitly. This agent image
   supports linux/amd64 and linux/arm64.
 - MCP credentials live in a dedicated demo volume; only MCP and Playground read
@@ -67,15 +65,16 @@
   services in that override, not the demo. Tests need no public target or model;
   Docker lifecycle stays in setup/CI, outside Go test fixtures.
 - Release assets derive from the repository owner and literal AgentType in
-  agent.go. Keep `.github/` and `agent.yaml.tmpl` aligned with the example agent.
+  agent.go. Keep `.github/` aligned with the example agent. The release helper
+  uses `framework/agent/manifest.Render` and its shared embedded template.
   Agent packages describe delivery assets and static capabilities: responsibilities,
   action names/descriptions, binaries/checksums and a Docker digest, never runtime
   secrets, arbitrary commands or host permissions.
 - Publish from one tested revision. Keep build/push reusable-only, preserve
   immutable version tags/assets, serialize releases and advance stable only
   after complete publication with no backward version movement. Grant this new
-  repository Actions write access to the existing GHCR package before release.
-  Commander must stop publishing this agent's image during the ownership handoff.
+  repository Actions write access to its GHCR package before release.
+  Commander does not publish this standalone agent's image.
 
 ## Static package description
 
@@ -88,7 +87,9 @@
 - Manifest generation imports this module using the path in `go.mod` and calls
   those functions through a temporary exporter. Keep its output bounded and its
   Go environment free of release/model tokens. The four-field `metadata` command
-  remains independent of these functions. Descriptions are capability metadata,
+  remains independent of these functions. `go mod tidy` skips hidden `.github/`
+  packages; afterward retain release-only dependencies with
+  `go get github.com/defos-ai/commander/framework/agent/manifest@v0.2.0`. Descriptions are capability metadata,
   never action readiness or permission to launch a package.
 
 ## Validation
@@ -121,4 +122,4 @@ registration, queues discovery against its local fixture, checks automatic
 follow-ups/results and completes a report, then settles and cleans work.
 
 An ignored go.work may link this module and Commander framework/providers for
-local development, but standalone validation must use published v0.1.0 modules.
+local development, but standalone validation must use published v0.2.0 modules.
